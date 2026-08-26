@@ -1,2 +1,6 @@
 gradio
 openai
+chromadb
+uuid
+re
+random
