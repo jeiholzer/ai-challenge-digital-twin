@@ -281,7 +281,11 @@ def get_weather(location: str = "Blacksburg, VA"):
 
 send_notification_function={
 	"name": "send_notification",
-	"description": "Send a push notification to Pushover account phone. Use this to alert important events or updates.", #tells the LLM what it is for
+	"description": "Send a push notification to Joel. Use this when: \
+	1) Someone wants to get in touch, hire, or collaborate \
+	- ask them for their ame and contact details, first, then send notification to Joel with ther name and contact details. \
+	2) You don't know the answer to a question about Joel - send notification AUTOMATICALLY without asking, \
+	include the question so we can add this later." #tells the LLM what it is for
 	"parameters": {
 		"type": "object",
 		"properties": {
@@ -358,20 +362,22 @@ def handle_tool_call(tool_calls):
 #-----------------------------------
 # System Message
 #-----------------------------------
-# this is not necessary but might be worht it
+# this is not necessary but might be worth it
 system_message = "You are a helpful assistant that answers questions based on the provided content.\
 	If you don't know the answer, say that you don't know. Always use all available information to provide\
 	the best answer. Important: do not talk about any topics that are not in the provided context.\
 	And only use the information provided in the context to answer the question. If the question is not related\
 	to the content, say you don't know\
-	Keep your answers somewhat concise. If they want more information on something, you tell them they can ask a follow-up question"
+	Keep your answers somewhat concise. If they want more information on something, you tell them they can ask a follow-up question\
+	IMPORTANT: when you don't know something about Joel\
+	ALWAYS use the send_notification tool to alert Joel - do this automatically without asking the user"
 
 #-----------------------------------
 # Main Response function
 #-----------------------------------
 def response_ai(message,history):
 	# RAG 
-	# embed the query using the same model ww used for the chunks to ensure compatability
+	# embed the query using the same model we used for the chunks to ensure compatibility
 	query_embedding = client.embeddings.create(
 		input=[message],
 		model="text-embedding-3-small"  # match whatever model you used for chunks
