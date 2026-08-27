@@ -17,7 +17,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if OPENAI_API_KEY is None:
 	raise Exception("OPENAI_API_KEY environment variable is not set.")
 else:
-	print(OPENAI_API_KEY[:8] + "..." + OPENAI_API_KEY[-8:])  # Print first and last 8 characters of the API key for verification
+	print(OPENAI_API_KEY[:8] + "..." + OPENAI_API_KEY[-8:], flush=True)  # Print first and last 8 characters of the API key for verification
 
 client = OpenAI()
 
@@ -266,8 +266,8 @@ def get_weather(location: str = "Blacksburg, VA"):
 	weather_resp = weather_response.json()
 
 	# Debug: log the raw response so you can see what actually came back
-	print(f"Weather API status: {weather_response.status_code}")
-	print(f"Weather API response: {weather_resp}")
+	print(f"Weather API status: {weather_response.status_code}", flush=True)
+	print(f"Weather API response: {weather_resp}", flush=True)
 
 	if "current" not in weather_resp:
 		error_reason = weather_resp.get("reason", "Unknown error from weather API")
@@ -336,7 +336,7 @@ def handle_tool_call(tool_calls):
 	for tool_call in tool_calls:
 		function_name = tool_call.function.name
 		args = json.loads(tool_call.function.arguments)
-		#print(f"Function name: {function_name}, Arguments: {args}")
+		print(f"Function name: {function_name}, Arguments: {args}", flush=True)
 		if function_name == "send_notification":
 			send_notification(args["message"])
 			function_content = f"Notification sent with message: {args['message']}"
@@ -346,7 +346,6 @@ def handle_tool_call(tool_calls):
 		elif function_name == "get_weather":
 			location = args.get("location", "Blacksburg, VA")
 			function_content = f"{get_weather(location)}"
-		#	function_name_2(args)
 		else:
 			function_content = f"Unknown function: {function_name}"
 
@@ -367,7 +366,7 @@ system_message = "You are a helpful assistant that answers questions based on th
 	If you don't know the answer, say that you don't know. Always use all available information to provide \
 	the best answer. Important: do not talk about any topics that are not in the provided context. \
 	And only use the information provided in the context to answer the question. If the question is not related \
-	to the content, say you don't know. \
+	to the content, say you don't know \
 	Keep your answers somewhat concise. If they want more information on something, you tell them they can ask a follow-up question \
 	IMPORTANT: when you don't know something about Joel \
 	ALWAYS use the send_notification tool to alert Joel - do this automatically without asking the user"
