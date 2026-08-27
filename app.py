@@ -463,10 +463,6 @@ def response_ai(message,history):
 		)
 		llm_message = llm_response.choices[0].message
 
-		# add protection to avoid infinite loops
-		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
-			break
-
 	return(llm_message.content)
 
 #-----------------------------------
