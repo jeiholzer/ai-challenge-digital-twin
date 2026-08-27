@@ -229,14 +229,20 @@ chroma_collection.add(
 # Tools
 #----------------------------------------
 def send_notification(message: str):
-	if pushover_user is None or pushover_token is None:
-		return "Notification failed: Pushover is not configured"
 	payload = {
 		"token": pushover_token,
 		"user": pushover_user,
 		"message": message
 	}
-	requests.post(pushover_url, data=payload)
+	response = requests.post(pushover_url, data=payload)
+
+	print(f"Pushover status: {response.status_code}", flush=True)
+	print(f"Pushover response: {response.text}", flush=True)
+
+	if response.status_code != 200:
+		print(f"Pushover notification failed: {response.text}", flush=True)
+
+	return response.status_code == 200
 
 def roll_dice():
 	return random.randint(1, 6)
