@@ -242,10 +242,17 @@ def roll_dice():
 	return random.randint(1, 6)
 
 def get_weather(location: str = "Blacksburg, VA"):
-	geo_resp = requests.get(
+	headers = {"User-Agent": "JoelsDigitalTwin (joel@example.com)"}
+
+	# Step 1: Geocode the location name to lat/lon (still using Open-Meteo's free geocoder for this part)
+	geo_response = requests.get(
 		"https://geocoding-api.open-meteo.com/v1/search",
 		params={"name": location, "count": 1}
-	).json()
+	)
+	geo_resp = geo_response.json()
+
+	print(f"Geocoding API status: {geo_response.status_code}", flush=True)
+	print(f"Geocoding API response: {geo_resp}", flush=True)
 
 	if not geo_resp.get("results"):
 		return f"Could not find location: {location}"
@@ -253,31 +260,47 @@ def get_weather(location: str = "Blacksburg, VA"):
 	lat = geo_resp["results"][0]["latitude"]
 	lon = geo_resp["results"][0]["longitude"]
 
-	weather_response = requests.get(
-		"https://api.open-meteo.com/v1/forecast",
-		params={
-			"latitude": lat,
-			"longitude": lon,
-			"current": "temperature_2m,weather_code,wind_speed_10m",
-			"temperature_unit": "fahrenheit"
-		}
+	# Step 2: Get the NWS grid point for these coordinates
+	points_response = requests.get(
+		f"https://api.weather.gov/points/{lat},{lon}",
+		headers=headers
 	)
+	points_resp = points_response.json()
 
-	weather_resp = weather_response.json()
+	print(f"NWS points API status: {points_response.status_code}", flush=True)
+	print(f"NWS points API response: {points_resp}", flush=True)
 
-	# Debug: log the raw response so you can see what actually came back
-	print(f"Weather API status: {weather_response.status_code}", flush=True)
-	print(f"Weather API response: {weather_resp}", flush=True)
+	if "properties" not in points_resp:
+		error_reason = points_resp.get("detail", "Unknown error from NWS points API")
+		return f"NWS lookup failed for {location}: {error_reason}"
 
-	if "current" not in weather_resp:
-		error_reason = weather_resp.get("reason", "Unknown error from weather API")
-		return f"Weather lookup failed: {error_reason}"
+	forecast_url = points_resp["properties"]["forecast"]
 
-	current = weather_resp["current"]
-	temp = current["temperature_2m"]
-	wind = current["wind_speed_10m"]
+	# Step 3: Get the actual forecast
+	forecast_response = requests.get(forecast_url, headers=headers)
+	forecast_resp = forecast_response.json()
 
-	return f"Current weather in {location}: {temp}°F, wind {wind} mph."
+	print(f"NWS forecast API status: {forecast_response.status_code}", flush=True)
+	print(f"NWS forecast API response: {forecast_resp}", flush=True)
+
+	if "properties" not in forecast_resp:
+		error_reason = forecast_resp.get("detail", "Unknown error from NWS forecast API")
+		return f"Forecast fetch failed for {location}: {error_reason}"
+
+	periods = forecast_resp["properties"].get("periods")
+	if not periods:
+		return f"No forecast periods returned for {location}"
+
+	current_period = periods[0]
+	name = current_period["name"]
+	temp = current_period["temperature"]
+	unit = current_period["temperatureUnit"]
+	forecast_text = current_period["detailedForecast"]
+
+	result = f"{name} in {location}: {temp}°{unit}. {forecast_text}"
+	print(f"get_weather result: {result}", flush=True)
+
+	return result
 
 send_notification_function={
 	"name": "send_notification",
