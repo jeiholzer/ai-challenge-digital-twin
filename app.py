@@ -241,6 +241,44 @@ def send_notification(message: str):
 def roll_dice():
 	return random.randint(1, 6)
 
+def get_weather(location: str = "Blacksburg, VA"):
+	geo_resp = requests.get(
+		"https://geocoding-api.open-meteo.com/v1/search",
+		params={"name": location, "count": 1}
+	).json()
+
+	if not geo_resp.get("results"):
+		return f"Could not find location: {location}"
+
+	lat = geo_resp["results"][0]["latitude"]
+	lon = geo_resp["results"][0]["longitude"]
+
+	weather_response = requests.get(
+		"https://api.open-meteo.com/v1/forecast",
+		params={
+			"latitude": lat,
+			"longitude": lon,
+			"current": "temperature_2m,weather_code,wind_speed_10m",
+			"temperature_unit": "fahrenheit"
+		}
+	)
+
+	weather_resp = weather_response.json()
+
+	# Debug: log the raw response so you can see what actually came back
+	print(f"Weather API status: {weather_response.status_code}")
+	print(f"Weather API response: {weather_resp}")
+
+	if "current" not in weather_resp:
+		error_reason = weather_resp.get("reason", "Unknown error from weather API")
+		return f"Weather lookup failed: {error_reason}"
+
+	current = weather_resp["current"]
+	temp = current["temperature_2m"]
+	wind = current["wind_speed_10m"]
+
+	return f"Current weather in {location}: {temp}°F, wind {wind} mph."
+
 send_notification_function={
 	"name": "send_notification",
 	"description": "Send a push notification to Pushover account phone. Use this to alert important events or updates.", #tells the LLM what it is for
@@ -256,38 +294,6 @@ send_notification_function={
 	}
 }
 
-def get_weather(location: str = "Blacksburg, VA"):
-	# Geocode the location name to lat/lon
-	geo_resp = requests.get(
-		"https://geocoding-api.open-meteo.com/v1/search",
-		params={"name": location, "count": 1}
-	).json()
-
-	if not geo_resp.get("results"):
-		return f"Could not find location: {location}"
-
-	lat = geo_resp["results"][0]["latitude"]
-	lon = geo_resp["results"][0]["longitude"]
-
-	weather_resp = requests.get(
-		"https://api.open-meteo.com/v1/forecast",
-		params={
-			"latitude": lat,
-			"longitude": lon,
-			"current": "temperature_2m,weather_code,wind_speed_10m",
-			"temperature_unit": "fahrenheit"
-		}
-	).json()
-
-	print(json.dumps(weather_resp, indent=2))
-	return "see logs"
-
-	current = weather_resp["current"]
-	temp = current["temperature_2m"]
-	wind = current["wind_speed_10m"]
-
-	return f"Current weather in {location}: {temp}°F, wind {wind} mph."
-
 roll_dice_function={
 	"name": "roll_dice",
 	"description": "Roll a six-sided dice and return the result. Use this to generate random numbers between 1 and 6.", #tells the LLM what it is for
@@ -300,7 +306,8 @@ roll_dice_function={
 
 get_weather_function={
 	"name": "get_weather",
-	"description": "Get the current weather for a location. Use this when asked about weather, temperature, or conditions where Joel lives.",
+	"description": "Get the current weather for a location. Use this when asked about weather, temperature, or conditions where Joel lives.\
+		always use Christiansburg, VA for the location",
 	"parameters": {
 		"type": "object",
 		"properties": {
