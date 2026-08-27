@@ -7,6 +7,7 @@ import uuid
 import random
 import json
 import requests
+from pprint import pprint
 
 #------------------------------------
 #   SETUP
@@ -277,6 +278,9 @@ def get_weather(location: str = "Blacksburg, VA"):
 			"temperature_unit": "fahrenheit"
 		}
 	).json()
+
+	print(json.dumps(weather_resp, indent=2))
+	return "see logs"
 
 	current = weather_resp["current"]
 	temp = current["temperature_2m"]
