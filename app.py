@@ -443,6 +443,11 @@ def response_ai(message,history):
 		message_to_llm.append(llm_message)
 		for response in tool_call_response:
 			message_to_llm.append(response)
+
+		# add protection to avoid infinite loops
+		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
+			print(f"Tool call limit hit, message count: {len(message_to_llm)}", flush=True)
+			return "Sorry, I got stuck trying to complete that request. Could you try rephrasing or asking something simpler?"
 		# message_to_llm.extend(tool_call_response) this works too but I like the loop for clarity
 		# invoke the LLM one more time to get it's updated response
 		llm_response = client.chat.completions.create(
@@ -451,10 +456,6 @@ def response_ai(message,history):
 			tools=tools 
 		)
 		llm_message = llm_response.choices[0].message
-
-		# add protection to avoid infinite loops
-		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
-			break
 
 	return(llm_message.content)
 
