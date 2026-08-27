@@ -21,9 +21,19 @@ else:
 
 client = OpenAI()
 
-pushover_url = "https://api.pushover.net/1/messages.json"
-pushover_token = os.getenv("pushover_token")
-pushover_user = os.getenv("pushover_user")
+PUSHOVER_URL = "https://api.pushover.net/1/messages.json"
+PUSHOVER_TOKEN = os.getenv("PUSHOVER_TOKEN")
+PUSHOVER_USER = os.getenv("PUSHOVER_USER")
+
+if PUSHOVER_TOKEN:
+	print(f"PUSHOVER_TOKEN loaded: {PUSHOVER_TOKEN[:6]}...", flush=True)
+else:
+	raise Exception("PUSHOVER_TOKEN environment variable is not set.")
+
+if PUSHOVER_USER:
+	print(f"PUSHOVER_USER loaded: {PUSHOVER_USER[:6]}...", flush=True)
+else:
+	print("PUSHOVER_USER is None or missing!", flush=True)
 
 #-----------------------------------
 # Load a document
@@ -229,20 +239,14 @@ chroma_collection.add(
 # Tools
 #----------------------------------------
 def send_notification(message: str):
+	if PUSHOVER_USER is None or PUSHOVER_TOKEN is None:
+		return "Notification failed: Pushover is not configured"
 	payload = {
-		"token": pushover_token,
-		"user": pushover_user,
+		"token": PUSHOVER_TOKEN,
+		"user": PUSHOVER_USER,
 		"message": message
 	}
-	response = requests.post(pushover_url, data=payload)
-
-	print(f"Pushover status: {response.status_code}", flush=True)
-	print(f"Pushover response: {response.text}", flush=True)
-
-	if response.status_code != 200:
-		print(f"Pushover notification failed: {response.text}", flush=True)
-
-	return response.status_code == 200
+	requests.post(PUSHOVER_URL, data=payload)
 
 def roll_dice():
 	return random.randint(1, 6)
@@ -353,11 +357,9 @@ get_weather_function={
 	}
 }
 
-tools = [
-	{"type":"function","function":send_notification_function},
-	{"type":"function","function":roll_dice_function},
-	{"type":"function","function":get_weather_function}
-	]
+tools = [{"type":"function","function":send_notification_function}]
+tools.append({"type":"function","function":roll_dice_function})
+tools.append({"type":"function","function":get_weather_function})
 
 def handle_tool_call(tool_calls):
 	results_list = []
@@ -443,12 +445,12 @@ def response_ai(message,history):
 		message_to_llm.append(llm_message)
 		for response in tool_call_response:
 			message_to_llm.append(response)
+		# message_to_llm.extend(tool_call_response) this works too but I like the loop for clarity
 
-		# add protection to avoid infinite loops
 		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
 			print(f"Tool call limit hit, message count: {len(message_to_llm)}", flush=True)
 			return "Sorry, I got stuck trying to complete that request. Could you try rephrasing or asking something simpler?"
-		# message_to_llm.extend(tool_call_response) this works too but I like the loop for clarity
+		
 		# invoke the LLM one more time to get it's updated response
 		llm_response = client.chat.completions.create(
 			model="gpt-4.1-mini",
@@ -456,6 +458,10 @@ def response_ai(message,history):
 			tools=tools 
 		)
 		llm_message = llm_response.choices[0].message
+
+		# add protection to avoid infinite loops
+		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
+			break
 
 	return(llm_message.content)
 
