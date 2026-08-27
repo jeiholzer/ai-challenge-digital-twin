@@ -437,6 +437,9 @@ def response_ai(message,history):
 
 	llm_message = llm_response.choices[0].message
 
+	tool_call_count = 0
+	max_tool_calls = 10
+
 	# check if AI wants to call a tool
 	while llm_message.tool_calls:
 		# handle tool call
@@ -447,8 +450,9 @@ def response_ai(message,history):
 			message_to_llm.append(response)
 		# message_to_llm.extend(tool_call_response) this works too but I like the loop for clarity
 
-		if len(message_to_llm) > 10:  # arbitrary limit to prevent infinite loops
-			print(f"Tool call limit hit, message count: {len(message_to_llm)}", flush=True)
+		tool_call_count += 1
+		if tool_call_count >= max_tool_calls:
+			print(f"Tool call limit hit after {tool_call_count} calls", flush=True)
 			return "Sorry, I got stuck trying to complete that request. Could you try rephrasing or asking something simpler?"
 		
 		# invoke the LLM one more time to get it's updated response
