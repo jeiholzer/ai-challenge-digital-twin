@@ -21,9 +21,8 @@ else:
 client = OpenAI()
 
 pushover_url = "https://api.pushover.net/1/messages.json"
-pushover_token = os.getenv("PUSHOVER_TOKEN")
-pushover_user = os.getenv("PUSHOVER_USER")
-
+pushover_token = os.getenv("pushover_token")
+pushover_user = os.getenv("pushover_user")
 
 #-----------------------------------
 # Load a document
@@ -229,6 +228,8 @@ chroma_collection.add(
 # Tools
 #----------------------------------------
 def send_notification(message: str):
+	if pushover_user is None or pushover_token is None:
+		return "Notification failed: Pushover is not configured"
 	payload = {
 		"token": pushover_token,
 		"user": pushover_user,
@@ -254,6 +255,35 @@ send_notification_function={
 	}
 }
 
+def get_weather(location: str = "Blacksburg, VA"):
+	# Geocode the location name to lat/lon
+	geo_resp = requests.get(
+		"https://geocoding-api.open-meteo.com/v1/search",
+		params={"name": location, "count": 1}
+	).json()
+
+	if not geo_resp.get("results"):
+		return f"Could not find location: {location}"
+
+	lat = geo_resp["results"][0]["latitude"]
+	lon = geo_resp["results"][0]["longitude"]
+
+	weather_resp = requests.get(
+		"https://api.open-meteo.com/v1/forecast",
+		params={
+			"latitude": lat,
+			"longitude": lon,
+			"current": "temperature_2m,weather_code,wind_speed_10m",
+			"temperature_unit": "fahrenheit"
+		}
+	).json()
+
+	current = weather_resp["current"]
+	temp = current["temperature_2m"]
+	wind = current["wind_speed_10m"]
+
+	return f"Current weather in {location}: {temp}°F, wind {wind} mph."
+
 roll_dice_function={
 	"name": "roll_dice",
 	"description": "Roll a six-sided dice and return the result. Use this to generate random numbers between 1 and 6.", #tells the LLM what it is for
@@ -264,7 +294,26 @@ roll_dice_function={
 	}
 }
 
-tools = [{"type":"function","function":send_notification_function},{"type":"function","function":roll_dice_function}]
+get_weather_function={
+	"name": "get_weather",
+	"description": "Get the current weather for a location. Use this when asked about weather, temperature, or conditions where Joel lives.",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"location": {
+				"type": "string",
+				"description": "City and state, e.g. 'Blacksburg, VA'. Defaults to Joel's location if not specified."
+			}
+		},
+		"required": []
+	}
+}
+
+tools = [
+	{"type":"function","function":send_notification_function},
+	{"type":"function","function":roll_dice_function},
+	{"type":"function","function":get_weather_function}
+	]
 
 def handle_tool_call(tool_calls):
 	results_list = []
@@ -279,6 +328,9 @@ def handle_tool_call(tool_calls):
 		elif function_name == "roll_dice":
 			roll_result = roll_dice()
 			function_content = f"Dice rolled: {roll_result}"
+		elif function_name == "get_weather":
+			location = args.get("location", "Blacksburg, VA")
+			function_content = get_weather(location)
 		#	function_name_2(args)
 		else:
 			function_content = f"Unknown function: {function_name}"
@@ -370,5 +422,26 @@ gr.ChatInterface(
 	chatbot=gr.Chatbot(),
 	description="Chat with my twin online"
 ).launch(server_name="0.0.0.0",server_port=int(os.environ.get("PORT",7860)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
