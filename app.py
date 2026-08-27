@@ -285,7 +285,7 @@ send_notification_function={
 	1) Someone wants to get in touch, hire, or collaborate \
 	- ask them for their ame and contact details, first, then send notification to Joel with ther name and contact details. \
 	2) You don't know the answer to a question about Joel - send notification AUTOMATICALLY without asking, \
-	include the question so we can add this later." #tells the LLM what it is for
+	include the question so we can add this later.",
 	"parameters": {
 		"type": "object",
 		"properties": {
@@ -363,13 +363,13 @@ def handle_tool_call(tool_calls):
 # System Message
 #-----------------------------------
 # this is not necessary but might be worth it
-system_message = "You are a helpful assistant that answers questions based on the provided content.\
-	If you don't know the answer, say that you don't know. Always use all available information to provide\
-	the best answer. Important: do not talk about any topics that are not in the provided context.\
-	And only use the information provided in the context to answer the question. If the question is not related\
-	to the content, say you don't know\
-	Keep your answers somewhat concise. If they want more information on something, you tell them they can ask a follow-up question\
-	IMPORTANT: when you don't know something about Joel\
+system_message = "You are a helpful assistant that answers questions based on the provided content. \
+	If you don't know the answer, say that you don't know. Always use all available information to provide \
+	the best answer. Important: do not talk about any topics that are not in the provided context. \
+	And only use the information provided in the context to answer the question. If the question is not related \
+	to the content, say you don't know. \
+	Keep your answers somewhat concise. If they want more information on something, you tell them they can ask a follow-up question \
+	IMPORTANT: when you don't know something about Joel \
 	ALWAYS use the send_notification tool to alert Joel - do this automatically without asking the user"
 
 #-----------------------------------
