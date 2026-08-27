@@ -330,7 +330,7 @@ def handle_tool_call(tool_calls):
 			function_content = f"Dice rolled: {roll_result}"
 		elif function_name == "get_weather":
 			location = args.get("location", "Blacksburg, VA")
-			function_content = get_weather(location)
+			function_content = f"{get_weather(location)}"
 		#	function_name_2(args)
 		else:
 			function_content = f"Unknown function: {function_name}"
