@@ -442,6 +442,7 @@ def response_ai(message,history):
 
 	# check if AI wants to call a tool
 	while llm_message.tool_calls:
+		tool_call_count += len(llm_message.tool_calls)  # count each individual tool call
 		# handle tool call
 		tool_call_response = handle_tool_call(llm_message.tool_calls) # list of tool calls, but we only have one for now
 		# add info about tool call respose to "context"
