@@ -21,8 +21,8 @@ else:
 client = OpenAI()
 
 pushover_url = "https://api.pushover.net/1/messages.json"
-pushover_token = os.getenv("pushover_token")
-pushover_user = os.getenv("pushover_user")
+pushover_token = os.getenv("PUSHOVER_TOKEN")
+pushover_user = os.getenv("PUSHOVER_USER")
 
 
 #-----------------------------------
