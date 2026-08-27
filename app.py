@@ -440,7 +440,7 @@ def response_ai(message,history):
 	llm_message = llm_response.choices[0].message
 
 	tool_call_count = 0
-	max_tool_calls = 10
+	max_tool_calls = 50
 
 	# check if AI wants to call a tool
 	while llm_message.tool_calls:
