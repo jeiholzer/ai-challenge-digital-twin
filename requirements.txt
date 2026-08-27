@@ -2,5 +2,4 @@ gradio
 openai
 chromadb
 uuid
-json
 requests
