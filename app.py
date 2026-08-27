@@ -5,6 +5,7 @@ import chromadb
 import re
 import uuid
 import random
+import json
 
 #------------------------------------
 #   SETUP
