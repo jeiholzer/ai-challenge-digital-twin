@@ -472,31 +472,13 @@ def response_ai(message,history):
 # Launch Gradio
 #-----------------------------------
 gr.ChatInterface(
-	fn=response_ai,
-	title="Joel's first digital twin",
-	chatbot=gr.Chatbot(),
-	description="Chat with my twin online"
-).launch(server_name="0.0.0.0",server_port=int(os.environ.get("PORT",7860)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    fn=response_ai,
+    title="Joel's first digital twin",
+    chatbot=gr.Chatbot(
+        avatar_images=(None, "head.jpg"),
+        value=[{"role": "assistant", "content": "Hey, I'm Joel's digital twin — ask me anything about my background, projects, or skills!"}]
+    ),
+    description="Chat with my twin online",
+	examples=["Tell me interesting facts about you","How can I contact you"]
+).launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
 
