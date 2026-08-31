@@ -40,25 +40,28 @@ else:
 #-----------------------------------
 document_overview = """
 My name is Joel Eiholzer
-I live in southwestern Virginia, USA. I am a software engineer with a passion for AI and machine learning. I have experience in developing web applications, data analysis, and cloud computing. 
-I enjoy learning new technologies and applying them to solve real-world problems.
-20+ years of experience as a Project Manager and Software Developer, managing IT projects with an eye towards continuous process improvement. Project leadership of cross-functional remote teams, fostering team coordination through a culture of inclusion, prioritizing collaboration both within my team and outside the team. Eﬀective at collaboration with diverse personalities
-I have run several marathons and triathlons. One day, I decided I wanted to be able to say I had run a marathon, so I made a plan and ran my first marathon in Columbus, Ohio. After a while, I got tired of just running, so I decided to try a triathlon. My first triathlon was at Clemson University in South Carolina.
+I live in southwestern Virginia, USA. I am a software engineer with a passion for AI and machine learning. I enjoy learning new technologies and applying them to solve real-world problems.
+20+ years of experience as a Project Manager and Software Developer, managing IT projects with an eye towards continuous process improvement. Project leadership of cross-functional remote teams, fostering team coordination through a culture of inclusion, prioritizing collaboration both within my team and outside the team. Eﬀective at collaborating with diverse personalities
+I have run several marathons and triathlons. One day, I decided I wanted to be able to say I had run a marathon, so I made a plan and ran my first marathon in Columbus, Ohio. After a while, I got tired of just running, so I decided to try a triathlon. My first triathlon was at Clemson University in South Carolina. I have since run many marathons and several triathlons.
 """
 
 document_education = """
-SUNY Canton - small two year college in upstate new you where I received an assocaites degree in Engineerign Science
-Virginia Polytechnic Institute: a large university in southwestern virginia where I received my Bachelor of Science (BS) Degree in Computer Engineering
-SSGI Agile Professional (SSGI-CAP)
-SAFe 6 Scrum Master (SSM)
-AWS Cloud Practitioner
-PMI Generative AI Overview
-AWS Certified AI Practitioner
-Project Management Professional (PMP Certification)
-AI Engineer Challenge 
+I graduated from Jamesville-Dewitt High School, located in Dewitt, New York. While there, I was in the theater and choir, and a select singing group called the Roaring 20s. I also started my first job at their photocopy shop and videotaping sporting events.
+I then attended SUNY Canton in Canton, New York, where I received an Associate Degree in Engineering Science. While there, I worked in the dining hall as a student manager.
+I then moved on to Virginia Tech in Blacksburg, Virginia, where I received my Bachelor of Science in Computer Engineering. Initially, I studied Electrical Engineering but found I did not enjoy learning to generate electricity, engineer communications systems, or design digital circuits.  Switching to Computer Engineering kept me close to that and was far more interesting to me.
+While at Virginia Tech, I joined the Phi Kappa Psi fraternity, where I served as President, Treasurer, and Chaplain.
 """
 
 document_profesional_experience = """
+Independent Contractor	07/2025 - Present
+During this time, I have been working on several projects to continue developing my skills and learning.
+Key Accomplishments
+•	Site redesign and improvement for the property rental website brac.com using AI assistance.
+•	Site redesign and improvement for the property rental website cbsrentals.com using AI assistance.
+•	Various modifications and improvements to the furniture site bassettmirror.com, including requirements gathering and database development.
+•	Achieved a PMI PMP certification
+•	Achieved the AWS Certified AI Practitioner certification
+•	Completed the AI Challenge, a six-week course on AI, complete with creating a digital twin
 ICF International | Project Manager	08/2019 - 06/2025
 Responsible for ownership and full software development lifecycle of 6 technical projects included within the Housing and Urban Development HUD Exchange website (annual budget: $5M), while leading intuitive user-centered design efforts across the entire platform.
 Key Accomplishments
@@ -86,7 +89,6 @@ Key Accomplishments
 •	Developed original HUD Exchange Training component with integration between the HUD Exchange and SumTotal LMS, leveraging API calls and data exports, and implemented Single Sign-On (SSO) for seamless user access. 
 •	Added the ability to relate questions in the HUD Exchange Ask A Question application.
 
-
 Primary Responsibilities
 •	Implemented new features and optimized the existing codebase, ensuring seamless performance and scalability.
 •	Architected scalable database structures and engineered advanced SQL queries to support dynamic, data-driven web applications.
@@ -111,6 +113,20 @@ Primary Responsibilities
 •	Work closely with customers through conferences, phone calls, and virtual meetings.
 """
 
+document_certifications = """
+Certifications
+SSGI Agile Professional (SSGI-CAP) -  certification is a basic introduction to agile practices for managers.
+SAFe 6 Scrum Master (SSM) certification is a credential from Scaled Agile for people who serve as Scrum Masters on Agile teams within large organizations using the Scaled Agile Framework (SAFe). It validates more than basic Scrum knowledge: it focuses on helping a team work effectively within a larger, coordinated Agile delivery structure.
+AWS Certified AI Practitioner validates in-demand knowledge of artificial intelligence (AI), machine learning (ML), and generative AI concepts and use cases. Sharpen your competitive edge and position yourself for career growth and higher earnings. I found this to be a great introductory overview of AI that was not easy but not very hard either.
+The PMI Project Management Professional certification. - Demonstrate the ability to lead projects in any industry with this globally recognized certification and open the door to a world of opportunities. The Project Management Professional certification recognizes candidates skilled in managing the people, processes, and business priorities of professional projects. This was one of the hardest certifications I have ever gotten. Not so much because of the processes as because of the agile situational questions.
+PMI Certified Professional in Managing AI (PMI-CPMAI) - gain the tools to build with AI effectively, giving you the playbook to secure AI success. In progress with expected certification in September 2026
+Courses
+AI Engineering Challenge – A great introduction to interacting with AI LLMs and creating a digital twin. I really enjoyed this experience.
+PMI Generative AI Overview - Gives a basic understanding of Generative AI (GenAI) in project management. Explores different tools and their applications for enhanced project outcomes. This was a good high-level overview.
+Clearances
+Held Defense Industrial Security Clearance Office (DISCO)-issued Personnel Clearance Level (PCL) of Secret
+"""
+
 document_technical_skills = """
 Project Management Tools
 Agile (Scrum, Kanban) · Risk Management · Scope Management · Stakeholder Engagement · Budgeting & Forecasting · Product Road mapping · Change Management · Human-Centered Design
@@ -121,7 +137,31 @@ AWS Cloud (EC2, Lambda, CloudFront, Kubernetes, DynamoDB) · DevOps, IaC, PaaS &
 Tools & Platforms
 Atlassian products JIRA and Confluence · MURAL · Slack · MS Teams · Trello · Zoom · Git/SVN · WordPress · Visio · PowerPoint · Excel
 """
-
+document_projects = """
+Project Management
+Project Manager, HUD Exchange, U.S. Department of Housing and Urban Development - In 2019, I transitioned from a developer to Project Manager for the IT portion of the Community Compass contract. As a Project Manager, I was responsible for overseeing the maintenance tasks, functionality updates, and new development for portions of the HUD Exchange website. This work included resourcing the team and monitoring the IT budget.  I was also responsible for the website's quality assurance to ensure it met Client expectations. I helped ensure that HUD Exchange follows the ICF Project Management Framework as part of the Project Life Cycle that adheres to Capability Maturity Model Integration (CMMI) Level 3 practices. 
+Project Manager, Internet Databases - I was responsible for project management across several projects. This included creating estimates for potential customers, gathering requirements, overseeing prototype design, guiding development efforts, and obtaining customer approval before releasing to production. The company’s main focus is on supporting furniture manufacturers with public and intranet websites.
+Project Manager, Acquisition Information Management (AIM), US Army Acquisition, Logistics, and Technology Enterprise Systems and Services (ALTESS). - While employed at Automation Creations Inc. I worked as a project leader on the AIM project. This suite of applications gathers acquisition program information from the project managers and reports it up the chain to the U.S. Army leadership and the Office of the Secretary of Defense. He oversaw all aspects of the project life cycle, including maintaining cost, schedule, and performance information. I traveled to conferences to present information on the applications, instruct users in hands-on sessions, and gather feedback and requirements.
+Web Development
+Developer, HUD Exchange, U.S. Department of Housing and Urban Development (HUD) - As a web developer, I was responsible for several components of the HUDX Exchange website. One of the larger accomplishments was creating a new Training and Events app that included pulling data from an external Learning Management System via its API. I also added major modifications to the Ask A Question application. Technologies used were CFML, JavaScript, SVN, MURA CMS, and MS SQL Server.
+Developer Cross-Site Evaluation OneNet System, U.S. Department of Justice - The OneNet system will replaced the TATIS-1 system recording on-site Training and Technical Assistance (T/TA) service delivery to States/Tribes. My responsibilities included database design and implementation, system architecture design, and application development. The technologies used are CFML, JavaScript, Model-Glue, SVN, and MS SQL Server.
+Developer, Child Welfare Information Gateway Website (CWIG), Children’s Bureau Clearinghouse Services, Administration for Children and Families, U.S. Department of Health and Human Services - CWIG provided access to information and resources to help protect children and strengthen families. My responsibilities included helping maintain and update the site, including code and database changes. I assisted in a 9,000+ page redesign . 9,000+ page. My responsibilities included coding new web pages from content provided by the project manager. I rewrote the survey module including recoding the input, output and redesigning the database that holds the data. The technologies used were Payflow, Google Custom Search Engine, Model-Glue, Fusebox, ColdSpring, CFML, JavaScript, CSS, SVN, RSS, Verity Search, BASIS, MS SQL Server and Oracle.
+Developer, IMS: Information Management System: Child Welfare, U.S. Department of Health and Human Services. This project involved building a backend management tool for the Child Welfare inventory management employees. The user interface design dictated the need for a rich internet application (RIA). My responsibility was to help create a highly functional prototype to support the development process. He is also working on modifying the current Childwelfare site to use the new database for displaying information. He aided in maintaining, tracking, and releasing database changes. The technologies used are Flex, Flash, MXML, Cairngorm, Cold Fusion 8, SVN, Model-Glue, and MS SQL Server.
+Developer, National Responsible Fatherhood Clearinghouse, U.S. Dept. of Health and Human Services, Administration for Children and Families, Office of Family Assistance - The National Responsible Fatherhood Clearinghouse (NRFC) serves as a national repository and distribution center for information and research relating to responsible fatherhood programs, initiatives, and activities for professionals and individuals. My responsibilities included helping maintain and update the site. The technologies used Model-Glue, ColdSpring, Transfer, CFML, CSS, RSS, SVN, and Oracle.
+Developer, National Healthy Marriage Resource Center, U.S. Department of Health and Human Services, Administration for Children and Families, Office of Family Assistance - The National Healthy Marriage Resource Center (NHMRC) provides group-based technical assistance to healthy marriage programs nationwide. My responsibilities included helping maintain and update the site. The technologies used Model-Glue, ColdSpring, Transfer, Farcry, CFML, CSS, RSS, SVN, MySQL, MS SQL Server, and Oracle.
+Developer, Welfare Peer Technical Assistance Network (PeerTA) Office of Family Assistance, Administration for Children and Families, U.S. Department of Health and Human Services - Welfare Peer TA provides peer-to-peer technical assistance to public agencies and private organizations operating the Temporary Assistance for Needy Families (TANF) program. My responsibilities included helping maintain and update the site. As part of this effort, I worked to import data from an Access database into MS SQL by writing SQL Scripts and modifying existing pages to use the new database design. The technologies used Model-Glue, ColdSpring, Transfer, CFML, CSS, RSS, SVN, and MS SQL Server.
+Developer, Air Force Community Assessments Results (AFCAR), U.S. Air Force - This project involved displaying the results of a mental survey for all Air Force bases. My responsibilities were to create a Fusebox framework for developers to work from and to research possibilities for generating various graphs to display the information. I worked directly with the site designer to help ensure all functionality was present. He worked directly with the database designer to ensure the table design would support the coding. I also assisted with the production and review of CMMI documentation to achieve CMMI Level 2 certification. The technologies used were Cold Fusion, Fusebox, DHTML, CSS and MS SQL Server.
+Developer - National Training and Technical Assistance Center (NTTAC), U.S. Department of Justice -  National Training and Technical Assistance Center (NTTAC) delivers, brokers, and promotes the highest quality training and technical assistance to the juvenile justice field and its related criminal justice initiatives by utilizing a vast array of training and technical assistance resources funded through the Office of Juvenile Justice and Delinquency Prevention (OJJDP) and its partners. My responsibilities included maintaining the site, coding a complete redesign of the site, merging a second website into this site, and consulting with others to make database changes and general additions as the site grows. The technologies used are Cold Fusion, Mach-II, MetaMIS, JSP, DHTML, CSS, SVN, and MS SQL Server.
+Developer - Training and Technical Assistance Center (TTAC), U.S. Department of Justice - This project focused on creating a learning community to strengthen the capacity of victim assistance organizations across the country. My responsibilities were mainly maintaining the site, including modifications and updates. I aided in a complete redesign by helping recode pages. The technologies used were Cold Fusion, Fusebox, DHTML, CSS, and MS SQL Server.
+Developer, Louisiana Road Home: Homeowner Application Data Entry, State of Louisiana -  This project involved creating a series of forms to enter data from handwritten applications. My responsibilities were to use the Fusebox framework to code much of the form logic and validate that the information entered was in acceptable formats. The technologies used were Cold Fusion, Fusebox, QForms, and MS SQL.
+Developer, Piedmont Arts – The website supports an award-winning art museum that curates thought-provoking exhibitions by international, national, and regional artists. The museum also offers performing arts, from concerts to plays to children's performances, and art classes for all ages. I was asked to implement a payment system using Clover Payment Processing. The implementation involved API calls and webhooks using ColdFusion and JavaScript.
+Developer, My Furnishweb - This is a portal supporting multiple furniture companies, where dealers and reps can access detailed information on orders, invoices, products, sales, etc. It involves integrating data from multiple sources and transforming it into a common database structure shared by all manufacturers. We also support custom forms associated with this site. I help maintain and add requested functionality. Technologies used were Lucee, CFML, python, jQuery, Bootstrap, AJAX calls, APIs, and MySQL.
+Project Manager/Developer
+Project Manager/Developer, Bassett Mirror Company - This is a site for a furniture manufacturer displaying their products. It also allows registered buyers to log in and order products through an online cart. I work directly with the customer to gather requirements, give estimates, and meet bi-weekly for updates. I also support backend development, adding new functionality primarily related to site and user administration. I reworked the data import from Excel spreadsheets into the database. Technologies used Lucee and MySQL.
+Project Manager/Developer, Dynamic Resume Entry Site, River Marine Management - While employed at Internet Databases, I was responsible for gathering requirements, designing the database, coding, and testing. The site allows applicants to apply for jobs with the company online and to print a PDF of the entered information. The information is saved in a database for later retrieval by the Human Resources staff. The technologies used for this site were Cold Fusion, Java, and MySQL.
+Project Manager/Developer, Online Invoicing System, River Marine Management - While employed at Internet Databases, I was responsible for requirements gathering, site design, and concept exploration. This site was designed to allow River Marine Management to access invoice information from various locations over the internet. The technologies used for this site were Cold Fusion, MySql and the database in Smartware.
+Project Manager/Developer, Harvey Plexico – I worked directly with the client to gather requirements and provide estimates. I designed coded the site. Technologies used were HTML Bootstrap, and JavaScript.
+"""
 
 #-----------------------------------
 # Chunking function 
@@ -192,7 +232,9 @@ documents = [
 	{"text": document_education, "source": "Learning and Education"},
 	{"text": document_profesional_experience, "source": "Work background and Professional Experience"},
 	{"text": document_overview, "source": "General backgound and personal information"},
-	{"text": document_technical_skills, "source": "Technical Skills and Proficiencies"}
+	{"text": document_certifications, "source": "Certifications and courses"},
+	{"text": document_technical_skills, "source": "Technical Skills and Proficiencies"},
+	{"text": document_projects, "source": "Projects that I have worked on"}
 ]
 
 chunks_list = []
@@ -209,13 +251,11 @@ for doc in documents:
 	ids.extend(tmp_ids)
 	metadatas.extend(tmp_metadatas)
 
-
 embedding_response = client.embeddings.create(
 	model="text-embedding-3-small",
 	input=chunks_list
 )
 embeddings = [item.embedding for item in embedding_response.data]
-
 
 chroma_client = chromadb.PersistentClient(path="./digital_twin_db")
 
@@ -233,7 +273,6 @@ chroma_collection.add(
 	documents=chunks_list,
 	metadatas=metadatas
 )
-
 
 #----------------------------------------
 # Tools
