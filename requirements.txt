@@ -3,4 +3,4 @@ openai
 chromadb
 uuid
 requests
-mysql
+mysql-connector-python
