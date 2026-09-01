@@ -290,7 +290,7 @@ def send_notification(message: str):
 def roll_dice():
 	return random.randint(1, 6)
 
-def get_weather(location: str = "Blacksburg, VA"):
+def get_weather(location: str = "Christiansburg, VA"):
 	headers = {"User-Agent": "JoelsDigitalTwin (joel@example.com)"}
 
 	# Step 1: Geocode the location name to lat/lon (still using Open-Meteo's free geocoder for this part)
@@ -381,14 +381,16 @@ roll_dice_function={
 
 get_weather_function={
 	"name": "get_weather",
-	"description": "Get the current weather for a location. Use this when asked about weather, temperature, or conditions where Joel lives.\
-		always use Christiansburg, VA for the location",
+	"description": "Get the current weather for a location. If the user asks about the weather where Joel lives, or just asks about \
+		'the weather' with no location given, call this with no 'location' argument (or leave it blank) so it defaults to \
+		Christiansburg, VA. If the user asks about weather in a specific city, or names their own city and state, pass that \
+		city and state as the 'location' argument instead.",
 	"parameters": {
 		"type": "object",
 		"properties": {
 			"location": {
 				"type": "string",
-				"description": "City and state, e.g. 'Blacksburg, VA'. Defaults to Joel's location if not specified."
+				"description": "City and state, e.g. 'Roanoke, VA'. Omit this to default to Joel's location, Christiansburg, VA."
 			}
 		},
 		"required": []
@@ -413,7 +415,7 @@ def handle_tool_call(tool_calls):
 			roll_result = roll_dice()
 			function_content = f"Dice rolled: {roll_result}"
 		elif function_name == "get_weather":
-			location = args.get("location", "Blacksburg, VA")
+			location = args.get("location", "Christiansburg, VA")
 			function_content = f"{get_weather(location)}"
 		else:
 			function_content = f"Unknown function: {function_name}"
@@ -515,7 +517,7 @@ gr.ChatInterface(
     title="Joel's first digital twin",
     chatbot=gr.Chatbot(
         avatar_images=(None, "head.jpg"),
-        value=[{"role": "assistant", "content": "Hey, I'm Joel's digital twin — ask me anything about my background, projects, or skills!"}]
+        value=[{"role": "assistant", "content": "Hey, I'm Joel's digital twin — ask me anything about my background, projects, or skills! You cna contact me through here or just ask about the weather where I am or where you are."}]
     ),
     description="Chat with my twin online",
 	examples=["Tell me interesting facts about you","How can I contact you"]
