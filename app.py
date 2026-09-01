@@ -7,6 +7,7 @@ import uuid
 import random
 import json
 import requests
+import mysql.connector
 from pprint import pprint
 
 #------------------------------------
@@ -34,6 +35,48 @@ if PUSHOVER_USER:
 	print(f"PUSHOVER_USER loaded: {PUSHOVER_USER[:6]}...", flush=True)
 else:
 	print("PUSHOVER_USER is None or missing!", flush=True)
+
+#-----------------------------------
+# Database setup (MySQL on Lightsail)
+#-----------------------------------
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME", "digital_twin_db")  # not one of your three required vars; defaults if unset
+
+if not all([DB_HOST, DB_USER, DB_PASSWORD]):
+	raise Exception("DB_HOST, DB_USER, and DB_PASSWORD environment variables must be set.")
+else:
+	print(f"DB_HOST loaded: {DB_HOST}", flush=True)
+
+def log_interaction(user_message, twin_response):
+	"""Insert a user message and the twin's response into didgital_twin_log.
+	Opens and closes its own connection per call rather than holding one open,
+	since Render can spin this service down/up between requests and a
+	long-lived connection object would go stale. Logging failures are caught
+	and printed rather than raised, so a DB hiccup never breaks the chat."""
+	conn = None
+	try:
+		conn = mysql.connector.connect(
+			host=DB_HOST,
+			user=DB_USER,
+			password=DB_PASSWORD,
+			database=DB_NAME,
+			connection_timeout=10,
+		)
+		cursor = conn.cursor()
+		# `insert` column now defaults to CURRENT_TIMESTAMP, so we don't set it here
+		cursor.execute(
+			"INSERT INTO didgital_twin_log (user_message, twin_response) VALUES (%s, %s)",
+			(user_message, twin_response)
+		)
+		conn.commit()
+		cursor.close()
+	except mysql.connector.Error as err:
+		print(f"Database logging failed: {err}", flush=True)
+	finally:
+		if conn is not None and conn.is_connected():
+			conn.close()
 
 #-----------------------------------
 # Load a document
@@ -506,6 +549,8 @@ def response_ai(message,history):
 			tools=tools 
 		)
 		llm_message = llm_response.choices[0].message
+
+	log_interaction(message, llm_message.content)
 
 	return(llm_message.content)
 
