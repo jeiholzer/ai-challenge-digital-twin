@@ -166,7 +166,7 @@ Project Manager/Developer, Harvey Plexico – I worked directly with the client 
 #-----------------------------------
 # Chunking function 
 #-----------------------------------
-def chunk_text(text, max_chars=300, min_chars=200, overlap=50):
+def chunk_text(text, max_chars=400, min_chars=300, overlap=50):
     text = text.strip()
     chunks = []
     start = 0
@@ -459,7 +459,7 @@ def response_ai(message,history):
 	#Search ChromaDB
 	query_results = chroma_collection.query(
 		query_embeddings=[query_embedding],
-		n_results=5,
+		n_results=10,
 		include=["documents", "metadatas", "distances"] # documents and metadatas are the defualt
 	)
 
@@ -517,9 +517,9 @@ gr.ChatInterface(
     title="Joel's first digital twin",
     chatbot=gr.Chatbot(
         avatar_images=(None, "head.jpg"),
-        value=[{"role": "assistant", "content": "Hey, I'm Joel's digital twin — ask me anything about my background, projects, or skills! You cna contact me through here or just ask about the weather where I am or where you are."}]
+        value=[{"role": "assistant", "content": "Hey, I'm Joel's digital twin — ask me anything about my background, projects, or skills! You can also contact me through here or just ask about the weather where I am or where you are."}]
     ),
-    description="Chat with my twin online",
+    description="Chat with my twin to learn more about me",
 	examples=["Tell me interesting facts about you","How can I contact you"]
 ).launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
 
